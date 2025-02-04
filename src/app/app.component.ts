@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginComponent } from "./pages/auth/login/login.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.css'],
+  imports: [LoginComponent]
 })
 export class AppComponent {
-  title = 'asyncwise';
+  loginForm: FormGroup;
+title: any;
+
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', Validators.required]
+    });
+  }
+
+  onSubmit() {
+    console.log(this.loginForm.value);
+  }
 }

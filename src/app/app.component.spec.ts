@@ -1,5 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  template: '<h1>Hello, asyncwise</h1>',
+})
+export class AppComponent {
+  title = 'asyncwise';
+}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
