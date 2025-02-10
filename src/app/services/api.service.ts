@@ -13,7 +13,7 @@ export class ApiService {
 
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, credentials);
-  }s
+  }
 
   getProjects(): Observable<any> {
     return this.http.get(`${this.apiUrl}/projects`);

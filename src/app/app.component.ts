@@ -1,25 +1,18 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginComponent } from "./pages/auth/login/login.component";
+import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  imports: [LoginComponent]
+  standalone: true,
+  imports: [RouterOutlet, SidebarComponent],
+  template: `
+    <div class="flex">
+      <app-sidebar></app-sidebar>
+      <router-outlet></router-outlet>
+    </div>
+  `
 })
 export class AppComponent {
-  loginForm: FormGroup;
-title: any;
-
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', Validators.required]
-    });
-  }
-
-  onSubmit() {
-    console.log(this.loginForm.value);
-  }
+  title = 'Syncwise';
 }

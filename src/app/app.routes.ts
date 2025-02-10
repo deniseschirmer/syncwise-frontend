@@ -10,13 +10,15 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },  // Protegendo a rota
-  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },     // Protegendo a rota
-  { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] }, // Protegendo a rota
-  { path: 'time-entries', component: TimeEntriesComponent, canActivate: [AuthGuard] }, // Protegendo a rota
-  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },       // Protegendo a rota
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+  { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
+  { path: 'time-entries', component: TimeEntriesComponent, canActivate: [AuthGuard] },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'login' } // Redireciona qualquer rota inválida para o login
 ];
 
 @NgModule({

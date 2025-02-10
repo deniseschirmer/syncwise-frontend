@@ -18,7 +18,10 @@
     "baseUrl": "src",
     "paths": {
       "@services/*": ["app/services/*"]
-    }
+    },
+    "types": [
+      "jasmine"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
