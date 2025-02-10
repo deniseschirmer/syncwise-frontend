@@ -14,6 +14,17 @@
     "src/server.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src"
   ]
 }
+
+// {
+//   "compilerOptions": {
+//     "moduleResolution": "node",
+//     "baseUrl": "./",
+//     "paths": {
+//       "@app/*": ["src/app/*"]
+//     }
+//   },
+//   "include": ["src"]
+// }

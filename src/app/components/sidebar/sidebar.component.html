@@ -1,0 +1,80 @@
+<div class="w-64 bg-[#234dd1] text-white h-screen flex flex-col">
+  <!-- Logo -->
+  <div class="p-4 flex items-center justify-center">
+    <img src="assets/logo.png" alt="SyncWise Logo" class="w-32">
+  </div>
+
+  <nav class="flex-1">
+    <ul>
+      <li>
+        <a routerLink="/dashboard" class="flex items-center p-3 hover:bg-blue-700">
+          <i class="pi pi-home mr-2"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <!-- Projetos -->
+      <li>
+        <button (click)="toggleMenu('projects')" class="w-full flex justify-between items-center p-3 hover:bg-blue-700">
+          <div class="flex items-center">
+            <i class="pi pi-folder mr-2"></i>
+            <span>Projetos</span>
+          </div>
+          <i class="pi pi-chevron-right" [ngClass]="{'rotate-90': activeMenu() === 'projects'}"></i>
+        </button>
+        <ul *ngIf="activeMenu() === 'projects'" class="ml-6">
+          <li><a routerLink="/projects/list" class="block p-2 hover:bg-blue-600">📜 Listar Todos</a></li>
+          <li><a routerLink="/projects/create" class="block p-2 hover:bg-blue-600">➕ Criar Novo</a></li>
+          <li><a routerLink="/projects/edit" class="block p-2 hover:bg-blue-600">✏️ Gerenciar</a></li>
+        </ul>
+      </li>
+
+      <!-- Atividades -->
+      <li>
+        <button (click)="toggleMenu('activities')" class="w-full flex justify-between items-center p-3 hover:bg-blue-700">
+          <div class="flex items-center">
+            <i class="pi pi-check-square mr-2"></i>
+            <span>Atividades</span>
+          </div>
+          <i class="pi pi-chevron-right" [ngClass]="{'rotate-90': activeMenu() === 'activities'}"></i>
+        </button>
+        <ul *ngIf="activeMenu() === 'activities'" class="ml-6">
+          <li><a routerLink="/activities/list" class="block p-2 hover:bg-blue-600">📜 Listar Todas</a></li>
+          <li><a routerLink="/activities/create" class="block p-2 hover:bg-blue-600">➕ Criar Nova</a></li>
+          <li><a routerLink="/activities/edit" class="block p-2 hover:bg-blue-600">✏️ Gerenciar</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a routerLink="/timesheet" class="flex items-center p-3 hover:bg-blue-300">
+          <i class="pi pi-clock mr-2"></i>
+          <span>Lançamento de Horas</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Configurações -->
+  <div class="p-4">
+    <ul>
+      <li>
+        <a routerLink="/profile" class="flex items-center p-3 hover:bg-blue-700">
+          <i class="pi pi-user mr-2"></i>
+          <span>Meu Perfil</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/help" class="flex items-center p-3 hover:bg-blue-100">
+          <i class="pi pi-question-circle mr-2"></i>
+          <span>Central de Ajuda</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/logout" class="flex items-center p-3 hover:bg-blue-100">
+          <i class="pi pi-sign-out mr-2"></i>
+          <span>Sair</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

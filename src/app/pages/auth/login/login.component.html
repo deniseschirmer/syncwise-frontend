@@ -1,63 +1,39 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
-    <div>
-      <h2 class="text-center text-3xl font-extrabold text-gray-900">
-        Faça login na sua conta
-      </h2>
+<div class="flex items-center justify-center h-screen bg-gray-100">
+  <div class="bg-white p-10 rounded-xl shadow-lg w-96">
+    <div class="text-center mb-6">
+      <img src="assets/logo.png" alt="Logo" class="w-20 mx-auto mb-4">
+      <h1 class="text-xl font-semibold text-gray-800">Bem-vindo ao SyncWise</h1>
+      <p class="text-gray-500 text-sm">Gerencie seus projetos com eficiência</p>
     </div>
-    <form class="mt-8 space-y-6">
-      <div class="rounded-md shadow-sm -space-y-px">
-        <div>
-          <label for="username" class="sr-only">Usuário</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            required
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Usuário"
-          />
-        </div>
-        <div>
-          <label for="password" class="sr-only">Senha</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Senha"
-          />
-        </div>
-      </div>
 
-      <div>
-        <button
-          type="submit"
-          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-            <!-- Ícone de login (opcional) -->
-            <svg
-              class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 12a2 2 0 100-4 2 2 0 000 4z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M3 10a7 7 0 1114 0 7 7 0 01-14 0zm7-5a5 5 0 100 10 5 5 0 000-10z"
-              />
-            </svg>
-          </span>
-          Entrar
-        </button>
+    <button type="button" class="w-full flex items-center justify-center gap-2 bg-gray-100 py-2 rounded-lg hover:bg-gray-200 transition">
+      <i class="pi pi-google text-red-500"></i> <span class="text-gray-700">Entrar com Google</span>
+    </button>
+
+    <div class="relative my-4">
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t"></div>
       </div>
+      <div class="relative flex justify-center text-sm">
+        <span class="bg-white px-2 text-gray-500">ou</span>
+      </div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label class="block text-gray-700">Email</label>
+        <input type="email" formControlName="email" placeholder="seu@email.com" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-[#234dd1] outline-none" />
+      </div>
+      <div>
+        <label class="block text-gray-700">Senha</label>
+        <input type="password" formControlName="senha" placeholder="Digite sua senha" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-[#234dd1] outline-none" />
+      </div>
+      <button type="submit" class="w-full bg-[#234dd1] text-white py-2 rounded-lg hover:bg-blue-600 transition">Entrar</button>
     </form>
+
+    <div class="flex justify-between text-sm mt-4">
+      <a routerLink="/forgot-password" class="text-blue-500 hover:underline">Esqueci minha senha</a>
+      <a routerLink="/signup" class="text-blue-500 hover:underline">Criar conta</a>
+    </div>
   </div>
 </div>
