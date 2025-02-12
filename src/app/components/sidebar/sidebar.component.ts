@@ -1,18 +1,25 @@
-import { Component, signal } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NgIf, NgClass, RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  activeMenu = signal<string | null>(null);
+  activeMenu: string | null = null;
 
-  toggleMenu(menu: string) {
-    this.activeMenu.set(this.activeMenu() === menu ? null : menu);
+  toggleMenu(menu: string): void {
+    this.activeMenu = this.activeMenu === menu ? null : menu;
+  }
+
+  constructor(@Inject(AuthService) private authService: AuthService) {}
+
+  logout(): void {
+    this.authService.logout();
   }
 }

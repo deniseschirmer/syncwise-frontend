@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -18,11 +17,5 @@ export const routes: Routes = [
   { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
   { path: 'time-entries', component: TimeEntriesComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'login' } // Redireciona qualquer rota inválida para o login
+  { path: '**', redirectTo: 'login' }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

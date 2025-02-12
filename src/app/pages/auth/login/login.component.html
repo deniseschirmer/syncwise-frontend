@@ -6,17 +6,9 @@
       <p class="text-gray-500 text-sm">Gerencie seus projetos com eficiência</p>
     </div>
 
-    <button type="button" class="w-full flex items-center justify-center gap-2 bg-gray-100 py-2 rounded-lg hover:bg-gray-200 transition">
-      <i class="pi pi-google text-red-500"></i> <span class="text-gray-700">Entrar com Google</span>
-    </button>
-
     <div class="relative my-4">
-      <div class="absolute inset-0 flex items-center">
-        <div class="w-full border-t"></div>
-      </div>
-      <div class="relative flex justify-center text-sm">
-        <span class="bg-white px-2 text-gray-500">ou</span>
-      </div>
+
+
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
@@ -28,12 +20,18 @@
         <label class="block text-gray-700">Senha</label>
         <input type="password" formControlName="senha" placeholder="Digite sua senha" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-[#234dd1] outline-none" />
       </div>
-      <button type="submit" class="w-full bg-[#234dd1] text-white py-2 rounded-lg hover:bg-blue-600 transition">Entrar</button>
+      <button
+      type="submit"
+      class="w-full bg-[#234dd1] text-white py-2 rounded-lg hover:bg-blue-600 transition"
+      [disabled]="!loginForm.valid"
+    >
+      Entrar
+    </button>
+
     </form>
 
     <div class="flex justify-between text-sm mt-4">
       <a routerLink="/forgot-password" class="text-blue-500 hover:underline">Esqueci minha senha</a>
-      <a routerLink="/signup" class="text-blue-500 hover:underline">Criar conta</a>
     </div>
   </div>
 </div>

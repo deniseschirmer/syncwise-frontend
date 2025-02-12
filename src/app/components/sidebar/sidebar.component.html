@@ -17,9 +17,9 @@
             <i class="pi pi-folder w-5 text-lg text-inherit mr-2"></i>
             <span>Projetos</span>
           </div>
-          <i class="pi pi-chevron-right transition-transform duration-300" [ngClass]="{'rotate-90': activeMenu() === 'projects'}"></i>
+          <i class="pi pi-chevron-right transition-transform duration-300" [ngClass]="{'rotate-90': activeMenu === 'projects'}"></i>
         </button>
-        <ul *ngIf="activeMenu() === 'projects'" class="ml-6 space-y-1 transition-max-h duration-300">
+        <ul *ngIf="activeMenu === 'projects'" class="ml-6 space-y-1 transition-max-h duration-300">
           <li><a routerLink="/projects/list" class="block p-2 text-sm hover:bg-[#2A2B32] hover:text-[#4A90E2]">📜 Listar Todos</a></li>
           <li><a routerLink="/projects/create" class="block p-2 text-sm hover:bg-[#2A2B32] hover:text-[#4A90E2]">➕ Criar Novo</a></li>
           <li><a routerLink="/projects/edit" class="block p-2 text-sm hover:bg-[#2A2B32] hover:text-[#4A90E2]">✏️ Gerenciar</a></li>
@@ -33,9 +33,9 @@
             <i class="pi pi-check-square w-5 text-lg text-inherit mr-2"></i>
             <span>Atividades</span>
           </div>
-          <i class="pi pi-chevron-right transition-transform duration-300" [ngClass]="{'rotate-90': activeMenu() === 'activities'}"></i>
+          <i class="pi pi-chevron-right transition-transform duration-300" [ngClass]="{'rotate-90': activeMenu === 'activities'}"></i>
         </button>
-        <ul *ngIf="activeMenu() === 'activities'" class="ml-6 space-y-1 transition-max-h duration-300">
+        <ul *ngIf="activeMenu === 'activities'" class="ml-6 space-y-1 transition-max-h duration-300">
           <li><a routerLink="/activities/list" class="block p-2 text-sm hover:bg-[#2A2B32] hover:text-[#4A90E2]">📜 Listar Todas</a></li>
           <li><a routerLink="/activities/create" class="block p-2 text-sm hover:bg-[#2A2B32] hover:text-[#4A90E2]">➕ Criar Nova</a></li>
           <li><a routerLink="/activities/edit" class="block p-2 text-sm hover:bg-[#2A2B32] hover:text-[#4A90E2]">✏️ Gerenciar</a></li>
@@ -67,11 +67,12 @@
         </a>
       </li>
       <li>
-        <a routerLink="/logout" class="flex items-center p-3 hover:bg-[#22232A] hover:text-[#4A90E2]">
+        <button (click)="logout()" class="flex items-center p-3 hover:bg-[#22232A] hover:text-[#4A90E2] w-full text-left">
           <i class="pi pi-sign-out w-5 text-lg text-inherit mr-2"></i>
           <span>Sair</span>
-        </a>
+        </button>
       </li>
+
     </ul>
   </div>
 </div>
