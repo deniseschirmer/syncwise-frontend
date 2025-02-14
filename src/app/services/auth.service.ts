@@ -1,19 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  logout() {
-    throw new Error('Method not implemented.');
-  }
-  constructor() {}
+  private mockUser = {
+    email: 'admin@email.com',
+    password: '123456',
+    perfil: 'ADMIN',
+    token: 'fake-jwt-token',
+  };
 
-  // Método para simular o login e retornar um token fictício
   login(email: string, password: string): Observable<any> {
-    // Simulando uma resposta de sucesso com um token fictício
-    const fakeToken = 'fake-jwt-token-12345'; // Token fictício
-    return of({ token: fakeToken }); // Retorna o token dentro de um Observable
+    if (email === this.mockUser.email && password === this.mockUser.password) {
+      localStorage.setItem('token', this.mockUser.token);
+      localStorage.setItem('perfil', this.mockUser.perfil);
+
+      return of({ token: this.mockUser.token, perfil: this.mockUser.perfil }).pipe(delay(1000));
+    } else {
+      return throwError(() => new Error('Credenciais inválidas'));
+    }
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('perfil');
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

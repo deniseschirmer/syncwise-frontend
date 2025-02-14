@@ -6,11 +6,6 @@
       <p class="text-gray-500 text-sm">Gerencie seus projetos com eficiência</p>
     </div>
 
-    <div class="relative my-4">
-
-
-    </div>
-
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
       <div>
         <label class="block text-gray-700">Email</label>
@@ -18,16 +13,15 @@
       </div>
       <div>
         <label class="block text-gray-700">Senha</label>
-        <input type="password" formControlName="senha" placeholder="Digite sua senha" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-[#234dd1] outline-none" />
+        <input type="password" formControlName="password" placeholder="Digite sua senha" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-[#234dd1] outline-none" />
       </div>
       <button
-      type="submit"
-      class="w-full bg-[#234dd1] text-white py-2 rounded-lg hover:bg-blue-600 transition"
-      [disabled]="!loginForm.valid"
-    >
-      Entrar
-    </button>
-
+        type="submit"
+        class="w-full bg-[#234dd1] text-white py-2 rounded-lg hover:bg-blue-600 transition"
+        [disabled]="!loginForm.valid"
+      >
+        Entrar
+      </button>
     </form>
 
     <div class="flex justify-between text-sm mt-4">
