@@ -1,15 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { AppComponent } from './app/app.component';
-import { LoginComponent } from './app/pages/auth/login/login.component';
-import { DashboardComponent } from 'app/pages/dashboard/dashboard.component';
+import { routes } from './app/app.routes'; // Certifique-se de que está importando as rotas corretamente
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter([
-      { path: '', component: LoginComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'dashboard', component: DashboardComponent } // Comentado até criar o componente
-    ], withComponentInputBinding())
-  ]
+  providers: [provideRouter(routes, withComponentInputBinding())]
 }).catch(err => console.error(err));

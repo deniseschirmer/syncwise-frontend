@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { LoginComponent } from './pages/auth/login/login.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule],
-  templateUrl: './app.component.html',
+  imports: [CommonModule, RouterModule, RouterOutlet],
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'Syncwise';
-
-  constructor() {
-    console.log('AppComponent carregado');
-  }
 }
-

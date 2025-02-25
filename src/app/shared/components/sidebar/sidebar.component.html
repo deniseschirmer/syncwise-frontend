@@ -3,6 +3,8 @@
   <nav class="flex-1">
     <div class="text-xs uppercase text-[#374151] font-semibold px-4 pt-4 pb-2 tracking-wide">Principal</div>
     <ul class="space-y-1">
+
+      <!-- Dashboard -->
       <li>
         <a routerLink="/dashboard" class="flex items-center p-3 transition-all duration-200 hover:bg-[#22232A] hover:text-[#4A90E2]">
           <i class="pi pi-home w-5 text-lg text-inherit mr-2"></i>
@@ -42,12 +44,22 @@
         </ul>
       </li>
 
+      <!-- Lançamento de Horas -->
       <li>
-        <a routerLink="/timesheet" class="flex items-center p-3 hover:bg-[#22232A] hover:text-[#4A90E2]">
+        <a routerLink="/time-entries" class="flex items-center p-3 hover:bg-[#22232A] hover:text-[#4A90E2]">
           <i class="pi pi-clock w-5 text-lg text-inherit mr-2"></i>
           <span>Lançamento de Horas</span>
         </a>
       </li>
+
+      <!-- Relatórios -->
+      <li>
+        <a routerLink="/reports" class="flex items-center p-3 hover:bg-[#22232A] hover:text-[#4A90E2]">
+          <i class="pi pi-chart-line w-5 text-lg text-inherit mr-2"></i>
+          <span>Relatórios</span>
+        </a>
+      </li>
+
     </ul>
   </nav>
 
@@ -72,7 +84,7 @@
           <span>Sair</span>
         </button>
       </li>
-
     </ul>
   </div>
+
 </div>

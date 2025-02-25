@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,11 +13,19 @@ import { RouterModule } from '@angular/router';
 export class SidebarComponent {
   activeMenu: string | null = null;
 
+  constructor(
+    @Inject(AuthService) private authService: AuthService,
+    private router: Router
+  ) {}
+
+  toggleAndNavigate(menu: string, route: string): void {
+    this.activeMenu = this.activeMenu === menu ? null : menu;
+    this.router.navigate([route]);
+  }
+
   toggleMenu(menu: string): void {
     this.activeMenu = this.activeMenu === menu ? null : menu;
   }
-
-  constructor(@Inject(AuthService) private authService: AuthService) {}
 
   logout(): void {
     this.authService.logout();
