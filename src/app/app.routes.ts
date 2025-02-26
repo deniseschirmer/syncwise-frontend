@@ -1,4 +1,4 @@
-import { ProjectCreateComponent } from './pages/project/create/create.component';
+import { CreateComponent } from './pages/project/create/create.component';
 import { Routes } from "@angular/router";
 import { LoginComponent } from "./pages/auth/login/login.component";
 import { LayoutComponent } from "./layout/layout/layout.component";
@@ -21,7 +21,7 @@ export const routes: Routes = [
       { path: 'projects', children: [
         {path: '', redirectTo: 'list', pathMatch: 'full' },
         { path: 'list', component: ProjectsComponent },
-        { path: 'create', component: ProjectCreateComponent},
+        { path: 'create', component: CreateComponent},
         { path: 'edit/:id', component: ProjectsComponent },
       ] },
       { path: 'activities', component: ActivitiesComponent },
