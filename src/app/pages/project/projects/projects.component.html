@@ -1,10 +1,248 @@
-<div class="flex-1 p-6">
-
-
-  <!-- Conteúdo -->
-  <div class="flex-1 flex flex-col">
-
-  <h1>aqui</h1>
-  <!-- Conteúdo da página de projetos -->
+<div class="p-8 bg-gray-100 min-h-screen">
+  <!-- Cabeçalho -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">Projetos</h1>
   </div>
+
+  <!-- Filtros e Busca -->
+  <div class="flex flex-wrap gap-4 mb-8">
+    <!-- Campo de Pesquisa -->
+    <div class="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex-1">
+      <input
+        type="text"
+        placeholder="Pesquisar projetos..."
+        class="w-full outline-none"
+        [(ngModel)]="searchQuery"
+        (input)="filterProjects()"
+      />
+      <i class="fas fa-search text-gray-400 ml-2"></i>
+    </div>
+
+    <!-- Filtro de Status -->
+    <div class="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 p-2">
+      <select
+        class="outline-none"
+        [(ngModel)]="selectedStatus"
+        (change)="filterProjects()"
+      >
+        <option value="" disabled selected>Status</option>
+        <option value="PLANEJADO">Planejado</option>
+        <option value="EM_ANDAMENTO">Em Andamento</option>
+        <option value="CONCLUIDO">Concluído</option>
+        <option value="CANCELADO">Cancelado</option>
+        <option value="TODOS">Todos</option>
+      </select>
+      <i class="fas fa-chevron-down text-gray-400 ml-2"></i>
+    </div>
+
+    <!-- Filtro de Prioridade -->
+    <div class="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 p-2">
+      <select
+        class="outline-none"
+        [(ngModel)]="selectedPriority"
+        (change)="filterProjects()"
+      >
+        <option value="" disabled selected>Prioridade</option>
+        <option value="ALTA">Alta</option>
+        <option value="MEDIA">Média</option>
+        <option value="BAIXA">Baixa</option>
+        <option value="TODOS">Todos</option>
+      </select>
+      <i class="fas fa-chevron-down text-gray-400 ml-2"></i>
+    </div>
+
+    <!-- Botão Novo Projeto -->
+    <button
+      class="bg-[#234dd1] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+      (click)="openNewProjectModal()"
+    >
+      Novo Projeto
+    </button>
+  </div>
+
+  <!-- Estado Vazio -->
+  <div *ngIf="!hasProjects" class="flex flex-col items-center justify-center h-64">
+    <img src="assets/no-project.png" alt="Nenhum projeto disponível" class="w-24 h-24 mb-4" />
+    <p class="text-gray-600">Nenhum projeto disponível</p>
+  </div>
+
+  <!-- Lista de Projetos -->
+  <div *ngIf="hasProjects" class="bg-white rounded-lg shadow-sm overflow-hidden">
+    <!-- Cabeçalho da Tabela -->
+    <div class="grid grid-cols-8 gap-4 p-4 bg-gray-50 border-b border-gray-200 font-semibold text-gray-700">
+      <div>Nome</div>
+      <div>Cliente</div>
+      <div>Progresso</div>
+      <div>Custo</div>
+      <div>Status</div>
+      <div>Prioridade</div>
+      <div>Data de Início</div>
+      <div>Data de Fim</div>
+    </div>
+
+    <!-- Linhas de Projetos -->
+    <div
+      *ngFor="let projeto of filteredProjects"
+      class="grid grid-cols-8 gap-4 p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+      (click)="navegarParaEdicao(projeto.id, projeto.nome)"
+    >
+      <div class="text-gray-800">{{ projeto.nome }}</div>
+      <div class="text-gray-600">{{ projeto.cliente?.nome }}</div>
+      <div class="text-gray-600">
+        {{ projeto.horasTrabalhadas || 0 }}h de {{ projeto.horasEstimadas || 0 }}h
+      </div>
+      <div class="text-gray-600">
+        {{ projeto.custoTrabalhado || 0 | currency:'BRL' }} de
+        {{ projeto.custoEstimado || 0 | currency:'BRL' }}
+      </div>
+      <div>
+        <span
+          [ngClass]="{
+            'bg-green-100 text-green-800': projeto.status === 'CONCLUIDO',
+            'bg-yellow-100 text-yellow-800': projeto.status === 'EM_ANDAMENTO',
+            'bg-red-100 text-red-800': projeto.status === 'CANCELADO',
+            'bg-blue-100 text-blue-800': projeto.status === 'PLANEJADO'
+          }"
+          class="px-2 py-1 rounded-full text-sm"
+        >
+          {{ projeto.status.replace('_', ' ') }}
+        </span>
+      </div>
+      <div>
+        <span
+          [ngClass]="{
+            'bg-red-100 text-red-800': projeto.prioridade === 'ALTA',
+            'bg-yellow-100 text-yellow-800': projeto.prioridade === 'MEDIA',
+            'bg-green-100 text-green-800': projeto.prioridade === 'BAIXA'
+          }"
+          class="px-2 py-1 rounded-full text-sm"
+        >
+          {{ projeto.prioridade }}
+        </span>
+      </div>
+      <div class="text-gray-600">{{ projeto.dataInicio | date:'dd/MM/yyyy' }}</div>
+      <div class="text-gray-600">{{ projeto.dataFim | date:'dd/MM/yyyy' }}</div>
+    </div>
+  </div>
+
+  <!-- Modal de Novo Projeto com PrimeNG -->
+  <p-dialog
+    header="Novo Projeto"
+    [(visible)]="showNewProjectModal"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <form (ngSubmit)="onSubmit(projectForm)" #projectForm="ngForm">
+      <div class="space-y-4">
+        <!-- Campo Nome -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nome</label>
+          <input
+            type="text"
+            pInputText
+            class="w-full"
+            [(ngModel)]="project.nome"
+            name="nome"
+            required
+          />
+        </div>
+
+        <!-- Campo Descrição -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Descrição</label>
+          <input
+            type="text"
+            pInputText
+            class="w-full"
+            [(ngModel)]="project.descricao"
+            name="descricao"
+            required
+          />
+        </div>
+
+        <!-- Campo Cliente -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Cliente</label>
+          <p-dropdown
+            [options]="clientes"
+            optionLabel="nome"
+            optionValue="id"
+            [(ngModel)]="project.cliente"
+            name="cliente"
+            placeholder="Selecione o cliente"
+            class="w-full"
+          ></p-dropdown>
+        </div>
+
+        <!-- Campo Data de Início -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Data de Início</label>
+          <p-calendar
+            [(ngModel)]="project.dataInicio"
+            name="dataInicio"
+            dateFormat="dd/mm/yy"
+            [showIcon]="true"
+            class="w-full"
+          ></p-calendar>
+        </div>
+
+        <!-- Campo Data de Fim -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Data de Fim</label>
+          <p-calendar
+            [(ngModel)]="project.dataFim"
+            name="dataFim"
+            dateFormat="dd/mm/yy"
+            [showIcon]="true"
+            class="w-full"
+          ></p-calendar>
+        </div>
+
+        <!-- Campo Status -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Status</label>
+          <p-dropdown
+            [options]="statusOptions"
+            [(ngModel)]="project.status"
+            name="status"
+            placeholder="Selecione o status"
+            class="w-full"
+          ></p-dropdown>
+        </div>
+
+        <!-- Campo Prioridade -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Prioridade</label>
+          <p-dropdown
+            [options]="prioridadeOptions"
+            [(ngModel)]="project.prioridade"
+            name="prioridade"
+            placeholder="Selecione a prioridade"
+            class="w-full"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <!-- Botões do Modal -->
+      <div class="mt-6 flex justify-end space-x-4">
+        <button
+          type="button"
+          pButton
+          label="Cancelar"
+          icon="pi pi-times"
+          class="p-button-text"
+          (click)="closeModal()"
+        ></button>
+        <button
+          type="submit"
+          pButton
+          label="Criar"
+          icon="pi pi-check"
+          [disabled]="!projectForm.form.valid"
+        ></button>
+      </div>
+    </form>
+  </p-dialog>
 </div>
