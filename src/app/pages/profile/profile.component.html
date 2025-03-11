@@ -1,1 +1,117 @@
-<p>meu-perfil works!</p>
+<div class="p-6">
+  <h1 class="text-2xl font-semibold mb-6">Perfil do Usuário</h1>
+
+  <!-- Tabs para alternar entre as seções -->
+  <div class="flex space-x-4 mb-6">
+    <button
+      [class.bg-blue-500]="activeTab === 'personal'"
+      [class.text-white]="activeTab === 'personal'"
+      class="px-4 py-2 rounded-md"
+      (click)="setActiveTab('personal')"
+    >
+      Dados Pessoais
+    </button>
+    <button
+      [class.bg-blue-500]="activeTab === 'security'"
+      [class.text-white]="activeTab === 'security'"
+      class="px-4 py-2 rounded-md"
+      (click)="setActiveTab('security')"
+    >
+      Segurança
+    </button>
+  </div>
+
+  <!-- Formulário de Dados Pessoais -->
+  <div *ngIf="activeTab === 'personal'">
+    <form [formGroup]="personalForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
+        <input
+          id="nome"
+          formControlName="nome"
+          type="text"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+          [class.border-red-500]="hasError(personalForm, 'nome', 'required')"
+        />
+        <div *ngIf="hasError(personalForm, 'nome', 'required')" class="text-red-500 text-sm">Nome é obrigatório</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+          [class.border-red-500]="hasError(personalForm, 'email', 'required') || hasError(personalForm, 'email', 'email')"
+        />
+        <div *ngIf="hasError(personalForm, 'email', 'required')" class="text-red-500 text-sm">Email é obrigatório</div>
+        <div *ngIf="hasError(personalForm, 'email', 'email')" class="text-red-500 text-sm">Email inválido</div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="personalForm.invalid"
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+      >
+        Atualizar Dados Pessoais
+      </button>
+    </form>
+  </div>
+
+  <!-- Formulário de Segurança -->
+  <div *ngIf="activeTab === 'security'">
+    <form [formGroup]="securityForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="senhaAtual" class="block text-sm font-medium text-gray-700">Senha Atual</label>
+        <input
+          id="senhaAtual"
+          formControlName="senhaAtual"
+          type="password"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+          [class.border-red-500]="hasError(securityForm, 'senhaAtual', 'required')"
+        />
+        <div *ngIf="hasError(securityForm, 'senhaAtual', 'required')" class="text-red-500 text-sm">Senha Atual é obrigatória</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="novaSenha" class="block text-sm font-medium text-gray-700">Nova Senha</label>
+        <input
+          id="novaSenha"
+          formControlName="novaSenha"
+          type="password"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+          [class.border-red-500]="hasError(securityForm, 'novaSenha', 'required')"
+        />
+        <div *ngIf="hasError(securityForm, 'novaSenha', 'required')" class="text-red-500 text-sm">Nova Senha é obrigatória</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar Nova Senha</label>
+        <input
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          type="password"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+          [class.border-red-500]="hasError(securityForm, 'confirmPassword', 'required')"
+        />
+        <div *ngIf="hasError(securityForm, 'confirmPassword', 'required')" class="text-red-500 text-sm">Confirmação de senha é obrigatória</div>
+        <div *ngIf="securityForm.hasError('passwordMismatch')" class="text-red-500 text-sm">As senhas não coincidem</div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="securityForm.invalid"
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
+      >
+        Atualizar Senha
+      </button>
+    </form>
+  </div>
+
+  <!-- Gráfico de Exemplo -->
+  <div class="mt-6">
+    <h2 class="text-xl font-semibold mb-4">Gráfico de Atividade</h2>
+    <p-chart *ngIf="chartData" [type]="'line'" [data]="chartData" [options]="chartOptions"></p-chart>
+  </div>
+</div>
