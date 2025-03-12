@@ -9,6 +9,7 @@ import { CreateComponent } from './pages/project/create/create.component';
 import { ProjectsComponent } from './pages/project/projects/projects.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { TimeEntriesComponent } from './pages/time-entries/time-entries.component';
+import { HelpCenterComponent } from './pages/help-center/help-center.component'; // Importe o componente da Central de Ajuda
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,16 +20,20 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'projects', children: [
-        { path: '', redirectTo: 'list', pathMatch: 'full' },
-        { path: 'list', component: ProjectsComponent },
-        { path: 'create', component: CreateComponent },
-        { path: 'edit/:id', component: ProjectsComponent },
-      ] },
+      {
+        path: 'projects',
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ProjectsComponent },
+          { path: 'create', component: CreateComponent },
+          { path: 'edit/:id', component: ProjectsComponent },
+        ]
+      },
       { path: 'activities', component: ActivitiesComponent },
       { path: 'time-entries', component: TimeEntriesComponent },
       { path: 'reports', component: ReportsComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'help-center', component: HelpCenterComponent } // Adicione a rota da Central de Ajuda
     ]
   },
   { path: '**', redirectTo: 'login' }

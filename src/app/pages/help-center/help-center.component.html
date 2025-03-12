@@ -1,0 +1,234 @@
+<section class="container mx-auto p-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Formulário de Contato -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4">Envie sua Mensagem</h2>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <!-- Nome Completo -->
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700"
+            >Nome Completo</label
+          >
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            [class.border-red-500]="
+              contactForm.get('name')?.touched &&
+              contactForm.get('name')?.invalid
+            "
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-[#234dd1]"
+            placeholder="Seu nome completo"
+            aria-label="Nome Completo"
+            aria-describedby="name-error"
+          />
+          <span
+            id="name-error"
+            class="text-red-500 text-xs mt-1"
+            *ngIf="
+              contactForm.get('name')?.touched &&
+              contactForm.get('name')?.invalid
+            "
+          >
+            {{ getErrorMessage("name") }}
+          </span>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email</label
+          >
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100 cursor-not-allowed"
+            readonly
+            [value]="contactForm.get('email')?.value"
+            aria-label="Email"
+            aria-describedby="email-error"
+          />
+          <span
+            id="email-error"
+            class="text-red-500 text-xs mt-1"
+            *ngIf="contactForm.get('email')?.invalid"
+          >
+            {{ getErrorMessage("email") }}
+          </span>
+        </div>
+
+        <!-- Assunto -->
+        <div>
+          <label for="subject" class="block text-sm font-medium text-gray-700"
+            >Assunto</label
+          >
+          <input
+            id="subject"
+            type="text"
+            formControlName="subject"
+            [class.border-red-500]="
+              contactForm.get('subject')?.touched &&
+              contactForm.get('subject')?.invalid
+            "
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-[#234dd1]"
+            placeholder="Assunto da mensagem"
+            aria-label="Assunto"
+            aria-describedby="subject-error"
+          />
+          <span
+            id="subject-error"
+            class="text-red-500 text-xs mt-1"
+            *ngIf="
+              contactForm.get('subject')?.touched &&
+              contactForm.get('subject')?.invalid
+            "
+          >
+            {{ getErrorMessage("subject") }}
+          </span>
+        </div>
+
+        <!-- Mensagem -->
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700"
+            >Mensagem</label
+          >
+          <textarea
+            id="message"
+            formControlName="message"
+            [class.border-red-500]="
+              contactForm.get('message')?.touched &&
+              contactForm.get('message')?.invalid
+            "
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-[#234dd1]"
+            rows="4"
+            placeholder="Digite sua mensagem"
+            aria-label="Mensagem"
+            aria-describedby="message-error"
+          ></textarea>
+          <span
+            id="message-error"
+            class="text-red-500 text-xs mt-1"
+            *ngIf="
+              contactForm.get('message')?.touched &&
+              contactForm.get('message')?.invalid
+            "
+          >
+            {{ getErrorMessage("message") }}
+          </span>
+        </div>
+
+        <!-- Botões -->
+        <div class="flex gap-4">
+          <button
+            type="button"
+            (click)="onCancel()"
+            class="px-4 py-2 bg-[#374151] text-white rounded-md hover:bg-gray-600 transition text-sm"
+          >
+            <i class="pi pi-times"></i> Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="isSubmitting"
+            class="px-4 py-2 bg-[#234dd1] text-white rounded-md hover:bg-blue-600 transition text-sm"
+          >
+            <i
+              class="fas"
+              [class.fa-paper-plane]="!isSubmitting"
+              [class.fa-spinner]="isSubmitting"
+              [class.fa-spin]="isSubmitting"
+            ></i>
+            {{ isSubmitting ? "Enviando..." : "Enviar Mensagem" }}
+          </button>
+        </div>
+      </form>
+
+      <!-- Mensagem de Sucesso -->
+      <div
+        *ngIf="showSuccessMessage"
+        class="mt-4 p-4 bg-green-500 text-white rounded-md shadow-md flex items-center gap-2"
+      >
+        <i class="pi pi-check-circle"></i>
+        <p>Mensagem enviada com sucesso!</p>
+      </div>
+    </div>
+
+    <!-- Outras Formas de Contato -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4 text-gray-700">
+        Outras Formas de Contato
+      </h2>
+      <div class="space-y-4">
+        <!-- Email -->
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 bg-[#234dd1] text-white rounded-full flex items-center justify-center"
+          >
+            <i class="pi pi-envelope"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-700">Email</h3>
+            <a
+              href="mailto:contato@syncwise.com"
+              class="text-sm text-gray-600 hover:text-[#234dd1]"
+            >
+              contato&#64;syncwise.com
+            </a>
+          </div>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 bg-[#234dd1] text-white rounded-full flex items-center justify-center"
+          >
+            <i class="pi pi-whatsapp"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-700">WhatsApp</h3>
+            <a
+              href="https://wa.me/5541999999999"
+              target="_blank"
+              class="text-sm text-gray-600 hover:text-[#234dd1]"
+            >
+              (41) 99999-9999
+            </a>
+          </div>
+        </div>
+
+        <!-- Telefone -->
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 bg-[#234dd1] text-white rounded-full flex items-center justify-center"
+          >
+            <i class="pi pi-phone"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-700">Telefone</h3>
+            <a
+              href="tel:+554133333333"
+              class="text-sm text-gray-600 hover:text-[#234dd1]"
+            >
+              (41) 3333-3333
+            </a>
+          </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 bg-[#234dd1] text-white rounded-full flex items-center justify-center"
+          >
+            <i class="pi pi-map-marker"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-700">Endereço</h3>
+            <p class="text-sm text-gray-600">
+              Rua Curitiba, Curitiba PR - Brasil
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
