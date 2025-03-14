@@ -1,59 +1,82 @@
 # Syncwise
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+Syncwise é uma aplicação front-end desenvolvida com **Angular 19** em **modo standalone** e estilizada com **Tailwind CSS**. Foi desenvolvido para automatizar e otimizar o processo de gerenciamento de projetos e lançamento de horas trabalhadas. Em Manutenção
 
-## Development server
+## 📌 Requisitos
 
-To start a local development server, run:
+Antes de rodar a aplicação, certifique-se de ter instalado:
+
+- [Node.js](https://nodejs.org/) (versão LTS recomendada)
+- [Angular CLI](https://angular.dev/tools/cli) versão 19.1.4
+
+## 🚀 Instalação
+
+Clone o repositório e instale as dependências:
+
+```bash
+# Clonar o repositório
+git clone https://github.com/deniseschirmer/syncwise-frontend
+
+# Acessar o diretório do projeto
+cd syncwise
+
+# Instalar dependências
+npm install
+```
+
+## 🖥️ Servidor de Desenvolvimento
+
+Para iniciar o servidor local, execute:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação estará disponível em [`http://localhost:4200/`](http://localhost:4200/) e será recarregada automaticamente ao modificar os arquivos fonte.
 
-## Code scaffolding
+## ⚙️ Criar Componentes
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Para gerar um novo componente, use:
 
 ```bash
-ng generate component component-name
+ng generate component nome-do-componente
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para ver todas as opções disponíveis:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+## 🔧 Build da Aplicação
 
-To build the project run:
+Para compilar o projeto, execute:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Os arquivos compilados ficarão na pasta `dist/`.
 
-## Running unit tests
+## ✅ Testes
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Para executar testes unitários:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## 🛠️ Tecnologias Utilizadas
 
-For end-to-end (e2e) testing, run:
+- **Angular 19** (Modo Standalone)
+- **Tailwind CSS**
+- **Angular CLI**
 
-```bash
-ng e2e
-```
+## 📜 Licença
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+_Desenvolvido por **Denise Schirmer**_
+
