@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  imports: [ReactiveFormsModule],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -16,15 +15,24 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-
   onSubmit() {
     if (this.loginForm.valid) {
-      // Simula um login bem-sucedido
-      this.router.navigate(['/dashboard']); // Redireciona para a Dashboard
+      const { email, password } = this.loginForm.value;
+
+      console.log("Email digitado:", email);
+      console.log("Senha digitada:", password);
+
+      const fakeJwtToken = "fake-jwt-token-12345";
+      localStorage.setItem('authToken', fakeJwtToken);
+
+      console.log("Token salvo:", localStorage.getItem('authToken')); // Deve exibir o token
+
+      this.router.navigate(['/dashboard']);
     }
   }
+
 }

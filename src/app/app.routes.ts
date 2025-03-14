@@ -1,28 +1,40 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+import { LayoutComponent } from './layout/layout/layout.component';
+import { ActivitiesComponent } from './pages/activities/activities.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
-import { ActivitiesComponent } from './pages/activities/activities.component';
-import { TimeEntriesComponent } from './pages/time-entries/time-entries.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CreateComponent } from './pages/project/create/create.component';
+import { ProjectsComponent } from './pages/project/projects/projects.component';
 import { ReportsComponent } from './pages/reports/reports.component';
-import { AuthGuard } from './guards/auth.guard';
+import { TimeEntriesComponent } from './pages/time-entries/time-entries.component';
+import { HelpCenterComponent } from './pages/help-center/help-center.component'; // Importe o componente da Central de Ajuda
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
-  { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
-  { path: 'time-entries', component: TimeEntriesComponent, canActivate: [AuthGuard] },
-  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'login' } // Redireciona qualquer rota inválida para o login
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      {
+        path: 'projects',
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ProjectsComponent },
+          { path: 'create', component: CreateComponent },
+          { path: 'edit/:id', component: ProjectsComponent },
+        ]
+      },
+      { path: 'activities', component: ActivitiesComponent },
+      { path: 'time-entries', component: TimeEntriesComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'help-center', component: HelpCenterComponent } // Adicione a rota da Central de Ajuda
+    ]
+  },
+  { path: '**', redirectTo: 'login' }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

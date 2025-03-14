@@ -1,18 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: object) {}
 
   canActivate(): boolean {
-    const isAuthenticated = !!localStorage.getItem('userToken'); // Simula autenticação
-    if (!isAuthenticated) {
-      this.router.navigate(['/login']);
-      return false;
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      console.log('AuthGuard - Token encontrado:', token);
+
+      if (!token) {
+        console.log('Redirecionando para login...');
+        this.router.navigate(['/login']);
+        return false;
+      }
+
+      console.log('Acesso permitido!');
+      return true;
     }
-    return true;
+    return false;
   }
 }

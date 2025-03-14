@@ -1,0 +1,115 @@
+<div class="container p-8 bg-gray-100 min-h-screen">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb mb-4">
+    <a (click)="navigateToTarefas()" class="text-blue-500 hover:underline cursor-pointer">Tarefas</a> /
+    <span class="text-gray-600">{{ tarefa.nome || 'Nova Tarefa' }}</span>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="content bg-white rounded-lg shadow-sm p-6">
+    <h2 class="text-2xl font-bold mb-6">Detalhes da Tarefa</h2>
+
+    <!-- Formulário -->
+    <div class="space-y-4">
+      <!-- Nome da Tarefa -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Nome da Tarefa</label>
+        <input
+          type="text"
+          [(ngModel)]="tarefa.nome"
+          class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          [disabled]="usuarioLogado.perfil !== 'ADMIN'"
+        />
+      </div>
+
+      <!-- Descrição -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Descrição</label>
+        <textarea
+          [(ngModel)]="tarefa.descricao"
+          class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          [disabled]="usuarioLogado.perfil !== 'ADMIN'"
+        ></textarea>
+      </div>
+
+      <!-- Responsável -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Responsável</label>
+        <div class="input-readonly p-2 bg-gray-100 rounded-lg">
+          {{ tarefa.usuarioResponsavel?.nome || 'Não atribuído' }}
+        </div>
+      </div>
+
+      <!-- Horas Estimadas -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Horas estimadas</label>
+        <input
+          type="number"
+          [(ngModel)]="tarefa.horasEstimadas"
+          class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          (blur)="validarHoras()"
+          [disabled]="usuarioLogado.perfil !== 'ADMIN'"
+        />
+      </div>
+
+      <!-- Tempo Registrado -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Tempo registrado</label>
+        <div class="input-readonly p-2 bg-gray-100 rounded-lg">
+          {{ tarefa.tempoRegistrado || 0 }} horas
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Status</label>
+        <p-dropdown
+          [(ngModel)]="tarefa.status"
+          [options]="statusOpcoes"
+          placeholder="Selecione o status"
+          class="w-full"
+          [disabled]="usuarioLogado.perfil !== 'ADMIN'"
+        ></p-dropdown>
+      </div>
+
+      <!-- Data de Início -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Data de Início</label>
+        <p-calendar
+          [(ngModel)]="tarefa.dataInicio"
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          class="w-full"
+          [disabled]="usuarioLogado.perfil !== 'ADMIN'"
+        ></p-calendar>
+      </div>
+
+      <!-- Data de Fim -->
+      <div class="form-group">
+        <label class="block text-sm font-medium text-gray-700">Data de Fim</label>
+        <p-calendar
+          [(ngModel)]="tarefa.dataFim"
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          class="w-full"
+          [disabled]="usuarioLogado.perfil !== 'ADMIN'"
+        ></p-calendar>
+      </div>
+
+      <!-- Botão Salvar -->
+      <div class="actions mt-6">
+        <button
+          pButton
+          type="button"
+          label="Salvar alterações"
+          class="p-button-primary"
+          (click)="salvarAlteracoes()"
+          [disabled]="usuarioLogado.perfil !== 'ADMIN'"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast do PrimeNG -->
+<p-toast></p-toast>

@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent],
-  template: `
-    <div class="flex">
-      <app-sidebar></app-sidebar>
-      <router-outlet></router-outlet>
-    </div>
-  `
+  imports: [CommonModule, RouterModule, RouterOutlet],
+  template: `<router-outlet></router-outlet>`,
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'Syncwise';

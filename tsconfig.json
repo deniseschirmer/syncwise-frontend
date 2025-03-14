@@ -1,5 +1,5 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
@@ -17,7 +17,8 @@
     "module": "ES2022",
     "baseUrl": "src",
     "paths": {
-      "@services/*": ["app/services/*"]
+      "@services/*": ["app/services/*"],
+      "primeng/*": ["node_modules/primeng/*"]
     },
     "types": [
       "jasmine"
@@ -28,5 +29,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
 }

@@ -1,5 +1,55 @@
-<app-sidebar></app-sidebar>
-<app-header></app-header>
+<div class="flex flex-col p-6 bg-gray-100 min-h-screen">
+  <!-- Grid de Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Card 1: Total de Projetos -->
+    <div class="bg-white p-6 rounded-lg shadow-md flex items-center hover:shadow-lg transition-shadow">
+      <i class="pi pi-folder text-blue-500 text-3xl mr-4"></i>
+      <div>
+        <p class="text-gray-600 text-sm">Total de Projetos</p>
+        <p class="text-xl font-semibold">24</p>
+      </div>
+    </div>
 
+    <!-- Card 2: Atividades Concluídas -->
+    <div class="bg-white p-6 rounded-lg shadow-md flex items-center hover:shadow-lg transition-shadow">
+      <i class="pi pi-check-circle text-green-500 text-3xl mr-4"></i>
+      <div>
+        <p class="text-gray-600 text-sm">Atividades Concluídas</p>
+        <p class="text-xl font-semibold">182</p>
+      </div>
+    </div>
 
+    <!-- Card 3: Horas Trabalhadas -->
+    <div class="bg-white p-6 rounded-lg shadow-md flex items-center hover:shadow-lg transition-shadow">
+      <i class="pi pi-clock text-yellow-500 text-3xl mr-4"></i>
+      <div>
+        <p class="text-gray-600 text-sm">Horas Trabalhadas</p>
+        <p class="text-xl font-semibold">320h</p>
+      </div>
+    </div>
 
+    <!-- Card 4: Equipe -->
+    <div class="bg-white p-6 rounded-lg shadow-md flex items-center hover:shadow-lg transition-shadow">
+      <i class="pi pi-users text-purple-500 text-3xl mr-4"></i>
+      <div>
+        <p class="text-gray-600 text-sm">Equipe</p>
+        <p class="text-xl font-semibold">8 Membros</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+    <!-- Gráfico de Barras: Progresso dos Projetos -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Progresso dos Projetos</h2>
+      <p-chart type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
+    </div>
+
+    <!-- Gráfico de Pizza: Distribuição de Horas -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Distribuição de Horas</h2>
+      <p-chart type="pie" [data]="pieChartData" [options]="pieChartOptions"></p-chart>
+    </div>
+  </div>
+</div>
